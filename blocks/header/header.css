@@ -1,6 +1,7 @@
 .header {
   box-sizing: border-box;
   padding: 45px 0 41px;
+  margin-bottom: 40px;
 
   border-bottom: 1px solid #545454;
 }

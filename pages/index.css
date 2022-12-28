@@ -9,3 +9,19 @@
 
 @import "../blocks/logo/logo.css";
 @import "../blocks/logo/__image/logo__image.css";
+
+@import "../blocks/profile/profile.css";
+@import "../blocks/profile/__avatar/profile__avatar.css";
+@import "../blocks/profile/__info/profile__info.css";
+@import "../blocks/profile/__name-wrap/profile__name-wrap.css";
+@import "../blocks/profile/__name/profile__name.css";
+@import "../blocks/profile/__about/profile__about.css";
+@import "../blocks/profile/__button-edit/profile__button-edit.css";
+@import "../blocks/profile/__button-add/profile__button-add.css";
+
+@import "../blocks/button-edit/button-edit.css";
+@import "../blocks/button-add/button-add.css";
+
+
+
+@import "../blocks/opacity-effect/opacity-effect.css";
