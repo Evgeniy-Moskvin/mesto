@@ -12,5 +12,5 @@
 
 **Ссылки**
 
-* [Проект на GitHub](https://github.com/Evgeniy-Moskvin/russian-travel)
-* [Просмотр проекта на GitHub Pages](https://evgeniy-moskvin.github.io/russian-travel/)
+* [Проект на GitHub](https://github.com/Evgeniy-Moskvin/mesto)
+* [Просмотр проекта на GitHub Pages](https://evgeniy-moskvin.github.io/mesto/)
