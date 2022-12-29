@@ -24,6 +24,7 @@
 @import "../blocks/button-edit/button-edit.css";
 @import "../blocks/button-add/button-add.css";
 @import "../blocks/button-like/button-like.css";
+@import "../blocks/button-like/_active/button-like_active.css";
 @import "../blocks/button-close/button-close.css";
 @import "../blocks/button/button.css";
 

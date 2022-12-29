@@ -11,7 +11,3 @@
 
   cursor: pointer;
 }
-
-.button-like:active {
-  background-image: url("../../images/like-fill-icon.svg");
-}
