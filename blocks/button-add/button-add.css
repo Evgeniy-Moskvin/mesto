@@ -17,5 +17,7 @@
 @media screen and (max-width: 992px) {
   .button-add {
     max-width: 300px;
+
+    background-size: 16px;
   }
 }

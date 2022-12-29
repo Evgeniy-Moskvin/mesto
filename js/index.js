@@ -8,14 +8,16 @@ let buttonClose = document.querySelector('.button-close');
 function handleFormSubmit(evt) {
   evt.preventDefault();
 
-  let name = nameInput.getAttribute('value');
-  let job = jobInput.getAttribute('value');
+  let name = nameInput.value;
+  let job = jobInput.value;
 
   let profileName = document.querySelector('.profile__name');
   let profileJob = document.querySelector('.profile__job');
 
   profileName.textContent = name;
   profileJob.textContent = job;
+
+  popup.classList.remove('popup_opened');
 }
 
 formElement.addEventListener('submit', handleFormSubmit);
@@ -29,13 +31,10 @@ buttonEdit.addEventListener('click', () => {
   let name = profileName.textContent;
   let job = profileJob.textContent;
 
-  nameInput.setAttribute('value', name);
-  jobInput.setAttribute('value', job);
+  nameInput.value = name;
+  jobInput.value = job;
 })
 
 buttonClose.addEventListener('click', () => {
-  nameInput.setAttribute('value', '');
-  jobInput.setAttribute('value', '');
-
   popup.classList.remove('popup_opened');
 })
