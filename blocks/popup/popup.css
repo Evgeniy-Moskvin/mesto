@@ -1,0 +1,18 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  display: none;
+  box-sizing: border-box;
+  width: 100vw;
+  min-width: 320px;
+  height: 100vh;
+  padding-left: 19px;
+  padding-right: 19px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
