@@ -1,6 +1,8 @@
 @import "../vendor/normalize.css";
 @import "../vendor/fonts/fonts.css";
 
+@import "../blocks/opacity-effect/opacity-effect.css";
+
 @import "../blocks/page/page.css";
 
 @import "../blocks/container/container.css";
@@ -32,4 +34,5 @@
 @import "../blocks/place-card/__body/place-card__body.css";
 @import "../blocks/place-card/__name/place-card__name.css";
 
-@import "../blocks/opacity-effect/opacity-effect.css";
+@import "../blocks/footer/footer.css";
+@import "../blocks/footer/__copyright/footer__copyright.css";
