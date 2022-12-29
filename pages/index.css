@@ -21,7 +21,15 @@
 
 @import "../blocks/button-edit/button-edit.css";
 @import "../blocks/button-add/button-add.css";
+@import "../blocks/button-like/button-like.css";
 
+@import "../blocks/places/places.css";
+@import "../blocks/places/__grid/places__grid.css";
+@import "../blocks/places/__item/places__item.css";
 
+@import "../blocks/place-card/place-card.css";
+@import "../blocks/place-card/__image/place-card__image.css";
+@import "../blocks/place-card/__body/place-card__body.css";
+@import "../blocks/place-card/__name/place-card__name.css";
 
 @import "../blocks/opacity-effect/opacity-effect.css";
