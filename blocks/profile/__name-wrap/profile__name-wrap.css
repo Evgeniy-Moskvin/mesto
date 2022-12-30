@@ -9,6 +9,8 @@
   .profile__name-wrap {
     margin-bottom: 0;
 
+    justify-content: center;
+
     transform: translateX(15px);
   }
 }
