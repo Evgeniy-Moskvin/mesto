@@ -13,7 +13,9 @@ const buttonClose = document.querySelectorAll('.button-close')
 
 const placesCardList = document.querySelector('.places__grid');
 const placeCardTemplate = document.querySelector('#place-card-template').content;
-
+const formAddPlaceCard = document.querySelector('.form-add-place-card');
+const placeNameInput = formAddPlaceCard.querySelector('.form__input_name_name');
+const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image');
 
 
 // PROFILE
@@ -24,7 +26,7 @@ function initProfileEditor() {
   profileJobInput.value = profileJob.textContent;
 }
 
-function handleFormSubmit(evt) {
+function editProfile(evt) {
   evt.preventDefault();
 
   profileName.textContent = profileNameInput.value;
@@ -33,7 +35,7 @@ function handleFormSubmit(evt) {
   closePopup(popupEditProfile);
 }
 
-formEditProfile.addEventListener('submit', handleFormSubmit);
+formEditProfile.addEventListener('submit', editProfile);
 
 initProfileEditor();
 
@@ -106,3 +108,19 @@ function renderPlaceCard(items) {
 }
 
 renderPlaceCard(initialCards);
+
+function addPlaceCard(evt) {
+  evt.preventDefault();
+
+  const placeCard = {
+    name: placeNameInput.value,
+    link: placeImageInput.value,
+  }
+
+  placesCardList.prepend(createPlaceCard(placeCard));
+
+  closePopup(popupAddPlaceCard);
+  formAddPlaceCard.reset();
+}
+
+formAddPlaceCard.addEventListener('submit', addPlaceCard);
