@@ -37,7 +37,7 @@
 </main>
 
 <footer class="footer container">
-  <p class="footer__copyright">© 2022 Mesto Russia</p>
+  <p class="footer__copyright">© 2023 Mesto Russia</p>
 </footer>
 
 <div class="popup popup_edit-profile">
@@ -47,8 +47,8 @@
     <h2 class="popup__title">Редактировать профиль</h2>
 
     <form name="form-edit-profile" class="form form-edit-profile">
-      <input type="text" name="name" placeholder="Имя" class="form__row form__input form__input_name_name">
-      <input type="text" name="job" placeholder="О себе" class="form__row form__input form__input_name_job">
+      <input type="text" name="name" placeholder="Имя" class="form__row form__input form__input_name_name" required>
+      <input type="text" name="job" placeholder="О себе" class="form__row form__input form__input_name_job" required>
 
       <button type="submit" class="button form__button">Сохранить</button>
     </form>
@@ -62,8 +62,8 @@
     <h2 class="popup__title">Новое место</h2>
 
     <form name="form-add-place-card" class="form form-add-place-card">
-      <input type="text" name="name" placeholder="Название" class="form__row form__input form__input_name_name">
-      <input type="text" name="image" placeholder="Ссылка на картинку" class="form__row form__input form__input_name_image">
+      <input type="text" name="name" placeholder="Название" class="form__row form__input form__input_name_name" required>
+      <input type="text" name="image" placeholder="Ссылка на картинку" class="form__row form__input form__input_name_image" required>
 
       <button type="submit" class="button form__button">Создать</button>
     </form>
