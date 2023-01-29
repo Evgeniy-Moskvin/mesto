@@ -40,7 +40,7 @@
   <p class="footer__copyright">© 2022 Mesto Russia</p>
 </footer>
 
-<div class="popup">
+<div class="popup popup_edit-profile">
   <div class="popup__container">
     <button type="button" class="button-close opacity-effect popup__close"></button>
 
@@ -51,6 +51,21 @@
       <input type="text" name="job" placeholder="О себе" class="form__row form__input form__input_name_job">
 
       <button type="submit" class="button form__button">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<div class="popup popup_add-place-card">
+  <div class="popup__container">
+    <button type="button" class="button-close opacity-effect popup__close"></button>
+
+    <h2 class="popup__title">Новое место</h2>
+
+    <form name="form-add-place-card" class="form form-add-place-card">
+      <input type="text" name="name" placeholder="Название" class="form__row form__input form__input_name_name">
+      <input type="text" name="job" placeholder="Ссылка на картинку" class="form__row form__input form__input_name_job">
+
+      <button type="submit" class="button form__button">Создать</button>
     </form>
   </div>
 </div>

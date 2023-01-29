@@ -2,12 +2,17 @@ let formElement = document.querySelector('.form-edit-profile');
 let nameInput = formElement.querySelector('.form__input_name_name');
 let jobInput = formElement.querySelector('.form__input_name_job');
 let popup = document.querySelector('.popup');
-let buttonEdit = document.querySelector('.button-edit');
-let buttonClose = document.querySelector('.button-close');
+
+const buttonEditProfile = document.querySelector('.button-edit');
+const buttonAddPlaceCard = document.querySelector('.button-add');
+
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 
+const popupEditProfile = document.querySelector('.popup_edit-profile');
+const popupAddPlaceCard = document.querySelector('.popup_add-place-card');
 const popupFullImage = document.querySelector('.popup_full-image');
+const buttonClose = document.querySelectorAll('.button-close')
 
 const placesCardList = document.querySelector('.places__grid');
 const placeCardTemplate = document.querySelector('#place-card-template').content;
@@ -23,20 +28,48 @@ function handleFormSubmit(evt) {
 
 formElement.addEventListener('submit', handleFormSubmit);
 
-function editProfile() {
+/*function editProfile() {
   popup.classList.add('popup_opened');
 
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+}*/
+
+/*function closePopup() {
+  popup.classList.remove('popup_opened');
+}*/
+
+//buttonEdit.addEventListener('click', editProfile);
+
+//buttonClose.addEventListener('click', closePopup);
+
+
+// POPUPS
+// ======
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
-function closePopup() {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-buttonEdit.addEventListener('click', editProfile);
+buttonClose.forEach((item) => {
+  item.addEventListener('click', () => {
+    closePopup(item.closest('.popup'));
+  })
+});
 
-buttonClose.addEventListener('click', closePopup);
+buttonEditProfile.addEventListener('click', () => {
+  openPopup(popupEditProfile)
+});
+
+buttonAddPlaceCard.addEventListener('click', () => {
+  openPopup(popupAddPlaceCard);
+});
+
+
 
 // CARDS
 // =====
