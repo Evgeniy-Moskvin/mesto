@@ -65,6 +65,7 @@ function doLike(evt) {
 function showImage(evt) {
   popupFullImage.querySelector('.popup__image').src = evt.target.src;
   popupFullImage.querySelector('.popup__image').alt = evt.target.alt;
+  popupFullImage.querySelector('.popup__image-name').textContent = evt.target.alt;
   popupFullImage.classList.add('popup_opened');
 }
 
