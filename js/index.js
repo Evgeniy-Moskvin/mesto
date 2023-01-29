@@ -1,13 +1,10 @@
-let formElement = document.querySelector('.form-edit-profile');
-let nameInput = formElement.querySelector('.form__input_name_name');
-let jobInput = formElement.querySelector('.form__input_name_job');
-let popup = document.querySelector('.popup');
-
+const formEditProfile = document.querySelector('.form-edit-profile');
+const profileNameInput = formEditProfile.querySelector('.form__input_name_name');
+const profileJobInput = formEditProfile.querySelector('.form__input_name_job');
 const buttonEditProfile = document.querySelector('.button-edit');
 const buttonAddPlaceCard = document.querySelector('.button-add');
-
-let profileName = document.querySelector('.profile__name');
-let profileJob = document.querySelector('.profile__job');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
 
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_add-place-card');
@@ -17,31 +14,29 @@ const buttonClose = document.querySelectorAll('.button-close')
 const placesCardList = document.querySelector('.places__grid');
 const placeCardTemplate = document.querySelector('#place-card-template').content;
 
+
+
+// PROFILE
+// =======
+
+function initProfileEditor() {
+  profileNameInput.value = profileName.textContent;
+  profileJobInput.value = profileJob.textContent;
+}
+
 function handleFormSubmit(evt) {
   evt.preventDefault();
 
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  profileName.textContent = profileNameInput.value;
+  profileJob.textContent = profileJobInput.value;
 
-  popup.classList.remove('popup_opened');
+  closePopup(popupEditProfile);
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
+formEditProfile.addEventListener('submit', handleFormSubmit);
 
-/*function editProfile() {
-  popup.classList.add('popup_opened');
+initProfileEditor();
 
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}*/
-
-/*function closePopup() {
-  popup.classList.remove('popup_opened');
-}*/
-
-//buttonEdit.addEventListener('click', editProfile);
-
-//buttonClose.addEventListener('click', closePopup);
 
 
 // POPUPS
