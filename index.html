@@ -32,62 +32,7 @@
   </section>
 
   <section class="places container" aria-label="Добавленные места">
-    <ul class="places__grid">
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Карачаевск</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Гора Эльбрус</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/dombay.jpg" alt="Домбай" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Домбай</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/baykal.jpg" alt="Озеро Байкал" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Озеро Байкал</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/kareliya.jpg" alt="Карелия" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Карелия</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="places__item">
-        <figure class="place-card places__card">
-          <img src="./images/altay.jpg" alt="Алтай" class="place-card__image">
-          <figcaption class="place-card__body">
-            <h2 class="place-card__name">Алтай</h2>
-            <button type="button" class="button-like opacity-effect place-card__like"></button>
-          </figcaption>
-        </figure>
-      </li>
-    </ul>
+    <ul class="places__grid"></ul>
   </section>
 </main>
 
@@ -110,6 +55,31 @@
   </div>
 </div>
 
+<div class="popup popup_full-image">
+  <div class="popup__container popup__container_image">
+    <button type="button" class="button-close opacity-effect popup__close"></button>
+
+    <img src="#" alt="image" class="popup__image">
+    <p class="popup__image-name"></p>
+  </div>
+</div>
+
+<template id="place-card-template">
+  <li class="places__item">
+    <figure class="place-card places__card">
+      <button type="button" aria-label="Удалить" class="button-delete opacity-effect place-card__delete"></button>
+      <div class="place-card__image-wrap">
+        <img src="" alt="" class="place-card__image">
+      </div>
+      <figcaption class="place-card__body">
+        <h2 class="place-card__name"></h2>
+        <button type="button" class="button-like opacity-effect place-card__like"></button>
+      </figcaption>
+    </figure>
+  </li>
+</template>
+
+<script src="./js/cards.js"></script>
 <script src="./js/index.js"></script>
 </body>
 </html>
