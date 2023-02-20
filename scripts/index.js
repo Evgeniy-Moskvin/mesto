@@ -2,6 +2,7 @@ const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
 const popupFullImage = document.querySelector('.popup_name_full-image');
 const buttonsClose = document.querySelectorAll('.button-close');
+const popupsList = document.querySelectorAll('.popup');
 
 const formEditProfile = popupEditProfile.querySelector('.form');
 const profileNameInput = formEditProfile.querySelector('.form__input_name_name');
@@ -24,17 +25,37 @@ const placeFullImage = popupFullImage.querySelector('.popup__image');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', closePopupByEsc)
 }
+
+const closePopupByEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+popupsList.forEach((popupElement) => {
+  popupElement.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popupElement);
+    }
+  })
+})
 
 buttonsClose.forEach((item) => {
   item.addEventListener('click', () => {
     closePopup(item.closest('.popup'));
   })
 });
+
+
 
 
 
@@ -126,4 +147,7 @@ buttonAddPlaceCard.addEventListener('click', () => {
   openPopup(popupAddPlaceCard);
 });
 
+
+
+initProfileEditor();
 enableValidation(config);
