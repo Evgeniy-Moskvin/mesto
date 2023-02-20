@@ -51,12 +51,12 @@
 
         <label class="form__group form__row">
           <input type="text" name="name" placeholder="Имя" class="form__input form__input_name_name" minlength="2" maxlength="40" required>
-          <span class="form__error-message"></span>
+          <span class="form__error-message form__error-message_field_name"></span>
         </label>
 
         <label class="form__group">
           <input type="text" name="job" placeholder="О себе" class="form__input form__input_name_job" minlength="2" maxlength="200" required>
-          <span class="form__error-message"></span>
+          <span class="form__error-message form__error-message_field_job"></span>
         </label>
       </fieldset>
       <button type="submit" class="button form__button">Сохранить</button>
@@ -75,13 +75,13 @@
         </legend>
 
         <label class="form__group form__row">
-          <input type="text" name="name" placeholder="Название" class="form__row form__input form__input_name_name" minlength="2" maxlength="30" required>
-          <span class="form__error-message"></span>
+          <input type="text" name="name" placeholder="Название" class="form__input form__input_name_name" minlength="2" maxlength="30" required>
+          <span class="form__error-message form__error-message_field_name"></span>
         </label>
 
         <label class="form__group">
-          <input type="url" name="image" placeholder="Ссылка на картинку" class="form__row form__input form__input_name_image" required>
-          <span class="form__error-message"></span>
+          <input type="url" name="image" placeholder="Ссылка на картинку" class="form__input form__input_name_image" required>
+          <span class="form__error-message form__error-message_field_image"></span>
         </label>
       </fieldset>
       <button type="submit" class="button form__button">Создать</button>
@@ -113,7 +113,8 @@
   </li>
 </template>
 
-<script src="./scripts/cards.js"></script>
-<script src="./scripts/index.js"></script>
+<script src="./scripts/cards.js" defer></script>
+<script src="./scripts/index.js" defer></script>
+<script src="./scripts/validate.js" defer></script>
 </body>
 </html>
