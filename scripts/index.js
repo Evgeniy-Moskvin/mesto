@@ -1,7 +1,7 @@
 const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
 const popupFullImage = document.querySelector('.popup_name_full-image');
-const buttonsCloseList = document.querySelectorAll('.button-close');
+const buttonsClose = document.querySelectorAll('.button-close');
 const popupsList = document.querySelectorAll('.popup');
 
 const formEditProfile = popupEditProfile.querySelector('.form');
@@ -20,10 +20,35 @@ const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image'
 const placeFullImage = popupFullImage.querySelector('.popup__image');
 
 
+const resetForm = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, form) => {
+  if (!form) {
+    return false;
+  }
+
+  const inputList = form.querySelectorAll(inputSelector);
+  const errorList = form.querySelectorAll(`.${errorClass}`);
+
+  inputList.forEach((inputElement) => {
+    inputElement.classList.remove(inputErrorClass);
+  });
+
+  errorList.forEach((errorElement) => {
+    errorElement.textContent = '';
+  });
+
+  form.reset();
+};
+
+
+
 // POPUPS
 // ======
 
 const openPopup = (popup) => {
+  if (popup.querySelector('.form')) {
+    enableValidation(config);
+  }
+
   popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', closePopupByEsc);
@@ -32,7 +57,9 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 
-  document.removeEventListener('keydown', closePopupByEsc)
+  document.removeEventListener('keydown', closePopupByEsc);
+
+  resetForm(config, popup.querySelector('.form'));
 }
 
 const closePopupByEsc = (evt) => {
@@ -49,7 +76,7 @@ popupsList.forEach((popupElement) => {
   })
 })
 
-buttonsCloseList.forEach((item) => {
+buttonsClose.forEach((item) => {
   item.addEventListener('click', () => {
     closePopup(item.closest('.popup'));
   })
@@ -138,7 +165,8 @@ const addPlaceCard = (evt) =>  {
   placesCardList.prepend(createPlaceCard(placeCard));
 
   closePopup(popupAddPlaceCard);
-  formAddPlaceCard.reset();
+  //formAddPlaceCard.reset();
+  resetForm(config, formAddPlaceCard);
 }
 
 formAddPlaceCard.addEventListener('submit', addPlaceCard);
@@ -147,7 +175,4 @@ buttonAddPlaceCard.addEventListener('click', () => {
   openPopup(popupAddPlaceCard);
 });
 
-
-
 initProfileEditor();
-enableValidation(config);
