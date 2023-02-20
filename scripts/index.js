@@ -125,3 +125,5 @@ formAddPlaceCard.addEventListener('submit', addPlaceCard);
 buttonAddPlaceCard.addEventListener('click', () => {
   openPopup(popupAddPlaceCard);
 });
+
+enableValidation(config);
