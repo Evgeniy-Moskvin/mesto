@@ -2,6 +2,7 @@ const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
 const popupFullImage = document.querySelector('.popup_name_full-image');
 const buttonsClose = document.querySelectorAll('.button-close');
+const popupsList = document.querySelectorAll('.popup');
 
 const formEditProfile = popupEditProfile.querySelector('.form');
 const profileNameInput = formEditProfile.querySelector('.form__input_name_name');
@@ -19,16 +20,61 @@ const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image'
 const placeFullImage = popupFullImage.querySelector('.popup__image');
 
 
+const resetForm = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, form) => {
+  if (!form) {
+    return false;
+  }
+
+  const inputList = form.querySelectorAll(inputSelector);
+  const errorList = form.querySelectorAll(`.${errorClass}`);
+
+  inputList.forEach((inputElement) => {
+    inputElement.classList.remove(inputErrorClass);
+  });
+
+  errorList.forEach((errorElement) => {
+    errorElement.textContent = '';
+  });
+
+  form.reset();
+};
+
+
+
 // POPUPS
 // ======
 
-function openPopup(popup) {
+const openPopup = (popup) => {
+  if (popup.querySelector('.form')) {
+    enableValidation(config);
+  }
+
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
-function closePopup(popup) {
+const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', closePopupByEsc);
+
+  resetForm(config, popup.querySelector('.form'));
 }
+
+const closePopupByEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+popupsList.forEach((popupElement) => {
+  popupElement.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popupElement);
+    }
+  })
+})
 
 buttonsClose.forEach((item) => {
   item.addEventListener('click', () => {
@@ -38,15 +84,17 @@ buttonsClose.forEach((item) => {
 
 
 
+
+
 // PROFILE
 // =======
 
-function initProfileEditor() {
+const initProfileEditor = () => {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
 }
 
-function editProfile(evt) {
+const editProfile = (evt) =>  {
   evt.preventDefault();
 
   profileName.textContent = profileNameInput.value;
@@ -67,22 +115,22 @@ buttonEditProfile.addEventListener('click', () => {
 // CARDS
 // =====
 
-function deleteCard(evt) {
+const deleteCard = (evt) =>  {
   evt.target.closest('.places__item').remove();
 }
 
-function doLike(evt) {
+const doLike = (evt) => {
   evt.target.classList.toggle('button-like_active');
 }
 
-function showImage(evt) {
+const showImage = (evt) => {
   placeFullImage.src = evt.target.src;
   placeFullImage.alt = evt.target.alt;
   popupFullImage.querySelector('.popup__image-name').textContent = evt.target.alt;
   openPopup(popupFullImage);
 }
 
-function createPlaceCard(item) {
+const createPlaceCard = (item) => {
   const card = placeCardTemplate.cloneNode(true);
   const cardImage = card.querySelector('.place-card__image');
   card.querySelector('.place-card__name').textContent = item.name;
@@ -96,7 +144,7 @@ function createPlaceCard(item) {
   return card;
 }
 
-function renderPlaceCard(items) {
+const renderPlaceCard = (items) => {
   const cards = items.map((item) => {
     return createPlaceCard(item);
   });
@@ -106,7 +154,7 @@ function renderPlaceCard(items) {
 
 renderPlaceCard(initialCards);
 
-function addPlaceCard(evt) {
+const addPlaceCard = (evt) =>  {
   evt.preventDefault();
 
   const placeCard = {
@@ -117,7 +165,8 @@ function addPlaceCard(evt) {
   placesCardList.prepend(createPlaceCard(placeCard));
 
   closePopup(popupAddPlaceCard);
-  formAddPlaceCard.reset();
+  //formAddPlaceCard.reset();
+  resetForm(config, formAddPlaceCard);
 }
 
 formAddPlaceCard.addEventListener('submit', addPlaceCard);
@@ -125,3 +174,5 @@ formAddPlaceCard.addEventListener('submit', addPlaceCard);
 buttonAddPlaceCard.addEventListener('click', () => {
   openPopup(popupAddPlaceCard);
 });
+
+initProfileEditor();
