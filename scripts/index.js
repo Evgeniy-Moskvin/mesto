@@ -1,7 +1,7 @@
 const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
 const popupFullImage = document.querySelector('.popup_name_full-image');
-const buttonsClose = document.querySelectorAll('.button-close');
+const buttonsCloseList = document.querySelectorAll('.button-close');
 const popupsList = document.querySelectorAll('.popup');
 
 const formEditProfile = popupEditProfile.querySelector('.form');
@@ -23,13 +23,13 @@ const placeFullImage = popupFullImage.querySelector('.popup__image');
 // POPUPS
 // ======
 
-function openPopup(popup) {
+const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', closePopupByEsc);
 }
 
-function closePopup(popup) {
+const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 
   document.removeEventListener('keydown', closePopupByEsc)
@@ -49,7 +49,7 @@ popupsList.forEach((popupElement) => {
   })
 })
 
-buttonsClose.forEach((item) => {
+buttonsCloseList.forEach((item) => {
   item.addEventListener('click', () => {
     closePopup(item.closest('.popup'));
   })
@@ -62,12 +62,12 @@ buttonsClose.forEach((item) => {
 // PROFILE
 // =======
 
-function initProfileEditor() {
+const initProfileEditor = () => {
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
 }
 
-function editProfile(evt) {
+const editProfile = (evt) =>  {
   evt.preventDefault();
 
   profileName.textContent = profileNameInput.value;
@@ -88,22 +88,22 @@ buttonEditProfile.addEventListener('click', () => {
 // CARDS
 // =====
 
-function deleteCard(evt) {
+const deleteCard = (evt) =>  {
   evt.target.closest('.places__item').remove();
 }
 
-function doLike(evt) {
+const doLike = (evt) => {
   evt.target.classList.toggle('button-like_active');
 }
 
-function showImage(evt) {
+const showImage = (evt) => {
   placeFullImage.src = evt.target.src;
   placeFullImage.alt = evt.target.alt;
   popupFullImage.querySelector('.popup__image-name').textContent = evt.target.alt;
   openPopup(popupFullImage);
 }
 
-function createPlaceCard(item) {
+const createPlaceCard = (item) => {
   const card = placeCardTemplate.cloneNode(true);
   const cardImage = card.querySelector('.place-card__image');
   card.querySelector('.place-card__name').textContent = item.name;
@@ -117,7 +117,7 @@ function createPlaceCard(item) {
   return card;
 }
 
-function renderPlaceCard(items) {
+const renderPlaceCard = (items) => {
   const cards = items.map((item) => {
     return createPlaceCard(item);
   });
@@ -127,7 +127,7 @@ function renderPlaceCard(items) {
 
 renderPlaceCard(initialCards);
 
-function addPlaceCard(evt) {
+const addPlaceCard = (evt) =>  {
   evt.preventDefault();
 
   const placeCard = {
