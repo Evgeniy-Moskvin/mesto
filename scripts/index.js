@@ -1,10 +1,11 @@
 const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
 const popupFullImage = document.querySelector('.popup_name_full-image');
-const buttonsClose = document.querySelectorAll('.button-close');
-const popupsList = document.querySelectorAll('.popup');
+const popupImageName = popupFullImage.querySelector('.popup__image-name');
+const closeButtons = document.querySelectorAll('.button-close');
+const popups = document.querySelectorAll('.popup');
 
-const formEditProfile = popupEditProfile.querySelector('.form');
+const formEditProfile = document.forms['form-edit-profile'];
 const profileNameInput = formEditProfile.querySelector('.form__input_name_name');
 const profileJobInput = formEditProfile.querySelector('.form__input_name_job');
 const buttonEditProfile = document.querySelector('.button-edit');
@@ -14,13 +15,13 @@ const profileJob = document.querySelector('.profile__job');
 
 const placesCardList = document.querySelector('.places__grid');
 const placeCardTemplate = document.querySelector('#place-card-template').content;
-const formAddPlaceCard = popupAddPlaceCard.querySelector('.form');
+const formAddPlaceCard = document.forms['form-add-place-card'];
 const placeNameInput = formAddPlaceCard.querySelector('.form__input_name_name');
 const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image');
 const placeFullImage = popupFullImage.querySelector('.popup__image');
 
 
-const resetForm = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, form) => {
+const resetForm = ({inputSelector, inputErrorClass, errorClass}, form) => {
   if (!form) {
     return false;
   }
@@ -45,10 +46,6 @@ const resetForm = ({formSelector, inputSelector, submitButtonSelector, inactiveB
 // ======
 
 const openPopup = (popup) => {
-  if (popup.querySelector('.form')) {
-    enableValidation(config);
-  }
-
   popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', closePopupByEsc);
@@ -58,8 +55,6 @@ const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 
   document.removeEventListener('keydown', closePopupByEsc);
-
-  resetForm(config, popup.querySelector('.form'));
 }
 
 const closePopupByEsc = (evt) => {
@@ -68,21 +63,16 @@ const closePopupByEsc = (evt) => {
   }
 }
 
-popupsList.forEach((popupElement) => {
-  popupElement.addEventListener('click', (evt) => {
+popups.forEach((popupElement) => {
+  popupElement.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popupElement);
+      closePopup(popupElement)
     }
-  })
-})
-
-buttonsClose.forEach((item) => {
-  item.addEventListener('click', () => {
-    closePopup(item.closest('.popup'));
-  })
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popupElement)
+    }
+  });
 });
-
-
 
 
 
@@ -106,6 +96,7 @@ const editProfile = (evt) =>  {
 formEditProfile.addEventListener('submit', editProfile);
 
 buttonEditProfile.addEventListener('click', () => {
+  resetForm(config, formEditProfile);
   initProfileEditor();
   openPopup(popupEditProfile);
 });
@@ -119,14 +110,14 @@ const deleteCard = (evt) =>  {
   evt.target.closest('.places__item').remove();
 }
 
-const doLike = (evt) => {
+const toggleLike = (evt) => {
   evt.target.classList.toggle('button-like_active');
 }
 
-const showImage = (evt) => {
-  placeFullImage.src = evt.target.src;
-  placeFullImage.alt = evt.target.alt;
-  popupFullImage.querySelector('.popup__image-name').textContent = evt.target.alt;
+const showImage = (src, name) => {
+  placeFullImage.src = src;
+  placeFullImage.alt = name;
+  popupImageName.textContent = name;
   openPopup(popupFullImage);
 }
 
@@ -137,17 +128,15 @@ const createPlaceCard = (item) => {
   cardImage.src = item.link;
   cardImage.alt = item.name;
 
-  card.querySelector('.place-card__like').addEventListener('click', doLike);
+  card.querySelector('.place-card__like').addEventListener('click', toggleLike);
   card.querySelector('.place-card__delete').addEventListener('click', deleteCard);
-  cardImage.addEventListener('click', showImage);
+  cardImage.addEventListener('click', () => showImage(item.link, item.name));
 
   return card;
 }
 
 const renderPlaceCard = (items) => {
-  const cards = items.map((item) => {
-    return createPlaceCard(item);
-  });
+  const cards = items.map(createPlaceCard);
 
   placesCardList.append(...cards);
 }
@@ -165,7 +154,6 @@ const addPlaceCard = (evt) =>  {
   placesCardList.prepend(createPlaceCard(placeCard));
 
   closePopup(popupAddPlaceCard);
-  //formAddPlaceCard.reset();
   resetForm(config, formAddPlaceCard);
 }
 
@@ -176,3 +164,4 @@ buttonAddPlaceCard.addEventListener('click', () => {
 });
 
 initProfileEditor();
+enableValidation(config);
