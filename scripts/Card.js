@@ -23,7 +23,7 @@ export class Card {
       this._toggleLike(evt);
     });
 
-    this._cardElement.querySelector('.place-card__image').addEventListener('click', () => {
+    this._placeCardImage.addEventListener('click', () => {
       this._showImage(this._link, this._name);
     });
   }
