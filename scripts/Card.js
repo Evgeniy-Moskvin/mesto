@@ -24,7 +24,7 @@ export class Card {
     });
 
     this._cardElement.querySelector('.place-card__image').addEventListener('click', () => {
-      this._showImage(this._cardElement.querySelector('.place-card__image').src, this._cardElement.querySelector('.place-card__name').textContent);
+      this._showImage(this._link, this._name);
     });
   }
 
@@ -42,11 +42,13 @@ export class Card {
 
   createCard() {
     this._cardElement = this._getTemplate();
+    this._placeCardName = this._cardElement.querySelector('.place-card__name');
+    this._placeCardImage = this._cardElement.querySelector('.place-card__image');
     this._setEventListeners();
 
-    this._cardElement.querySelector('.place-card__name').textContent = this._name;
-    this._cardElement.querySelector('.place-card__image').src = this._link;
-    this._cardElement.querySelector('.place-card__image').alt = this._name;
+    this._placeCardName.textContent = this._name;
+    this._placeCardImage.src = this._link;
+    this._placeCardImage.alt = this._name;
 
     return this._cardElement;
   }
