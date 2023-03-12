@@ -1,4 +1,4 @@
-import { showImage } from "./index.js";
+import { showImage } from "../pages";
 
 export class Card {
   constructor(data, templateSelector) {
@@ -10,7 +10,7 @@ export class Card {
   _getTemplate() {
     return document
       .querySelector(this._templateSelector)
-      .content.querySelector('.place-card')
+      .content.querySelector('.places__item')
       .cloneNode(true);
   }
 
@@ -23,7 +23,7 @@ export class Card {
       this._toggleLike(evt);
     });
 
-    this._cardElement.querySelector('.place-card__image').addEventListener('click', () => {
+    this._placeCardImage.addEventListener('click', () => {
       this._showImage(this._link, this._name);
     });
   }
