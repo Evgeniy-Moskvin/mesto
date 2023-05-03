@@ -1,10 +1,9 @@
-import { showImage } from "../pages";
-
-export class Card {
-  constructor(data, templateSelector) {
+export default class Card {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -24,7 +23,7 @@ export class Card {
     });
 
     this._placeCardImage.addEventListener('click', () => {
-      this._showImage(this._link, this._name);
+      this._handleCardClick(this._link, this._name);
     });
   }
 
@@ -34,10 +33,6 @@ export class Card {
 
   _toggleLike(evt) {
     evt.target.classList.toggle('button-like_active');
-  }
-
-  _showImage(src, name) {
-    showImage(src, name);
   }
 
   createCard() {
