@@ -1,5 +1,11 @@
 import './index.css';
 
+import { initialCards } from '../utils/data.js';
+import Section from '../components/Section';
+import {
+  placesCardListSelector,
+  placeCardTemplateSelector,
+} from '../utils/constants';
 
 const popupEditProfile = document.querySelector('.popup_name_edit-profile');
 const popupAddPlaceCard = document.querySelector('.popup_name_add-place-card');
@@ -15,18 +21,17 @@ const buttonAddPlaceCard = document.querySelector('.button-add');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
-const placesCardList = document.querySelector('.places__grid');
-const placeCardTemplateSelector = '#place-card-template';
 const formAddPlaceCard = document.forms['form-add-place-card'];
 const placeNameInput = formAddPlaceCard.querySelector('.form__input_name_name');
 const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image');
 const placeFullImage = popupFullImage.querySelector('.popup__image');
 
 
-import { initialCards } from "../utils/data.js";
-import { Card } from "../components/Card.js";
-import { config } from "../utils/config.js";
-import { FormValidator } from "../scripts/FormValidator.js";
+
+import { Card } from '../components/Card.js';
+import { config } from '../utils/config.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { data } from 'autoprefixer';
 
 const formEditProfileValidate = new FormValidator(config, formEditProfile);
 const formAddPlaceCardValidate = new FormValidator(config, formAddPlaceCard);
@@ -64,7 +69,6 @@ popups.forEach((popupElement) => {
 });
 
 
-
 // PROFILE
 // =======
 
@@ -94,9 +98,26 @@ initProfileEditor();
 formEditProfileValidate.enableValidation();
 
 
-
 // CARDS
 // =====
+
+const createPlaceCard = ({ name, link }) => {
+  const card = new Card({ name, link }, placeCardTemplateSelector);
+  return card.createCard();
+}
+
+const placeCard = new Section({
+  items: initialCards,
+  renderer: createPlaceCard,
+}, placesCardListSelector);
+
+placeCard.rendererItems();
+
+
+
+
+
+
 
 export const showImage = (src, name) => {
   placeFullImage.src = src;
@@ -105,15 +126,12 @@ export const showImage = (src, name) => {
   openPopup(popupFullImage);
 }
 
-const createPlaceCard = ({name, link}) => {
-  const card = new Card({name, link}, placeCardTemplateSelector);
-  return card.createCard();
-}
 
-const renderPlaceCard = (item) => {
+
+/*const renderPlaceCard = (item) => {
   const cards = item.map(createPlaceCard);
   placesCardList.append(...cards);
-}
+}*/
 
 const addPlaceCard = (evt) => {
   evt.preventDefault();
@@ -136,5 +154,5 @@ buttonAddPlaceCard.addEventListener('click', () => {
   openPopup(popupAddPlaceCard);
 });
 
-renderPlaceCard(initialCards);
+
 formAddPlaceCardValidate.enableValidation();

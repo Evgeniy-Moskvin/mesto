@@ -12,8 +12,9 @@ const buttonAddPlaceCard = document.querySelector('.button-add');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
-const placesCardList = document.querySelector('.places__grid');
-const placeCardTemplateSelector = '#place-card-template';
+//const placesCardList = document.querySelector('.places__grid');
+export const placesCardListSelector = '.places__grid';
+export const placeCardTemplateSelector = '#place-card-template';
 const formAddPlaceCard = document.forms['form-add-place-card'];
 const placeNameInput = formAddPlaceCard.querySelector('.form__input_name_name');
 const placeImageInput = formAddPlaceCard.querySelector('.form__input_name_image');
