@@ -32,49 +32,14 @@ const formAddPlaceCardValidate = new FormValidator(config, formAddPlaceCard);
 
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
-const popupWithImage = new PopupWithImage(popupWithImageSelector);
-popupWithImage.setEventListeners();
-
-const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
-popupAddPlaceCard.setEventListeners();
-
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
-popupEditProfile.setEventListeners();
-
 
 const addPlaceCard = ({ name, image: link }) => {
   placeCard.addItem(createPlaceCard({ name, link }))
 }
 
-const editProfile = ({ name, job }) => {
-  userInfo.setUserInfo({ name, job });
-}
-
-
 const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
 }
-
-
-buttonAddPlaceCard.addEventListener('click', () => {
-  popupAddPlaceCard.open();
-});
-
-buttonEditProfile.addEventListener('click', () => {
-  initProfileEditor();
-  popupEditProfile.open();
-})
-
-
-const initProfileEditor = () => {
-  profileNameInput.value = userInfo.getUserInfo().name;
-  profileJobInput.value = userInfo.getUserInfo().job;
-}
-
-
-initProfileEditor();
-formEditProfileValidate.enableValidation();
-
 
 const createPlaceCard = ({ name, link }) => {
   const card = new Card({ name, link }, placeCardTemplateSelector, handleCardClick);
@@ -88,4 +53,37 @@ const placeCard = new Section({
 
 placeCard.rendererItems();
 
+buttonAddPlaceCard.addEventListener('click', () => {
+  popupAddPlaceCard.open();
+});
+
+
+const initProfileEditor = () => {
+  profileNameInput.value = userInfo.getUserInfo().name;
+  profileJobInput.value = userInfo.getUserInfo().job;
+}
+
+initProfileEditor();
+
+const editProfile = ({ name, job }) => {
+  userInfo.setUserInfo({ name, job });
+}
+
+buttonEditProfile.addEventListener('click', () => {
+  initProfileEditor();
+  popupEditProfile.open();
+})
+
+
+const popupWithImage = new PopupWithImage(popupWithImageSelector);
+popupWithImage.setEventListeners();
+
+const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
+popupAddPlaceCard.setEventListeners();
+
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
+popupEditProfile.setEventListeners();
+
+
+formEditProfileValidate.enableValidation();
 formAddPlaceCardValidate.enableValidation();
