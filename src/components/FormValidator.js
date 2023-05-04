@@ -70,20 +70,10 @@ export default class FormValidator {
     });
   }
 
-  resetForm() {
-    if (!this._form) {
-      return false;
-    }
-    const errorList = this._form.querySelectorAll(`.${this._errorClass}`);
-
-    this._inputList.forEach((inputElement) => {
-      inputElement.classList.remove(this._inputErrorClass);
-    });
-
-    errorList.forEach((errorElement) => {
-      errorElement.textContent = '';
-    });
-
-    this._form.reset();
+  resetValidation() {
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);
+    })
+    this._toggleButtonState();
   }
 }

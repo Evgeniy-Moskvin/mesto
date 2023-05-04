@@ -22,8 +22,6 @@ import {
   formAddPlaceCard,
   profileNameSelector,
   profileJobSelector,
-  profileNameInput,
-  profileJobInput,
 } from '../utils/constants.js';
 
 
@@ -34,7 +32,8 @@ const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
 
 const addPlaceCard = ({ name, image: link }) => {
-  placeCard.addItem(createPlaceCard({ name, link }))
+  placeCard.addItem(createPlaceCard({ name, link }));
+  popupAddPlaceCard.close();
 }
 
 const handleCardClick = (src, name) => {
@@ -58,15 +57,9 @@ buttonAddPlaceCard.addEventListener('click', () => {
 });
 
 
-const initProfileEditor = () => {
-  profileNameInput.value = userInfo.getUserInfo().name;
-  profileJobInput.value = userInfo.getUserInfo().job;
-}
-
-initProfileEditor();
-
 const editProfile = ({ name, job }) => {
   userInfo.setUserInfo({ name, job });
+  popupEditProfile.close();
 }
 
 buttonEditProfile.addEventListener('click', () => {
@@ -78,11 +71,22 @@ buttonEditProfile.addEventListener('click', () => {
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
 popupWithImage.setEventListeners();
 
-const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
+const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard, () => {
+  formAddPlaceCardValidate.resetValidation();
+});
 popupAddPlaceCard.setEventListeners();
 
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile, () => {
+  formEditProfileValidate.resetValidation();
+});
 popupEditProfile.setEventListeners();
+
+
+const initProfileEditor = () => {
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
+}
+
+initProfileEditor();
 
 
 formEditProfileValidate.enableValidation();
