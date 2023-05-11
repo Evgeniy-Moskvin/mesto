@@ -7,6 +7,7 @@ export const buttonEditProfile = document.querySelector('.button-edit');
 export const buttonAddPlaceCard = document.querySelector('.button-add');
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__job';
+export const profileAvatarSelector = '.profile__avatar';
 export const placesCardListSelector = '.places__grid';
 export const placeCardTemplateSelector = '#place-card-template';
 export const formAddPlaceCard = document.forms['form-add-place-card'];

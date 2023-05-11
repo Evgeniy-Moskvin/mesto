@@ -1,7 +1,6 @@
 import './index.css';
 
 import { config } from '../utils/config.js';
-import { initialCards } from '../utils/data.js';
 
 import Card from '../components/Card.js'
 import Section from '../components/Section.js';
@@ -9,6 +8,8 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
+
+import { api } from '../components/Api';
 
 import {
   popupWithImageSelector,
@@ -24,6 +25,7 @@ import {
   formEditAvatar,
   profileNameSelector,
   profileJobSelector,
+  profileAvatarSelector,
   avatar,
 } from '../utils/constants.js';
 
@@ -32,13 +34,17 @@ const formEditProfileValidate = new FormValidator(config, formEditProfile);
 const formAddPlaceCardValidate = new FormValidator(config, formAddPlaceCard);
 const formEditAvatarValidate = new FormValidator(config, formEditAvatar);
 
-const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
+const userInfo = new UserInfo({
+  profileNameSelector,
+  profileJobSelector,
+  profileAvatarSelector,
+});
 
 
-const addPlaceCard = ({ name, image: link }) => {
+/*const addPlaceCard = ({ name, image: link }) => {
   placeCard.addItem(createPlaceCard({ name, link }));
   popupAddPlaceCard.close();
-}
+}*/
 
 const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
@@ -49,20 +55,35 @@ const createPlaceCard = ({ name, link }) => {
   return card.createCard();
 }
 
-const placeCard = new Section({
-  items: initialCards,
-  renderer: createPlaceCard,
-}, placesCardListSelector);
+Promise.all([
+  api.getUserInfo(),
+  api.getInitialCards(),
+])
+  .then((res) => {
+    const user = res[0];
+    const initialCards = res[1];
 
-placeCard.rendererItems();
 
-buttonAddPlaceCard.addEventListener('click', () => {
+    userInfo.setUserInfo(user);
+    userInfo.setUserAvatar(user);
+
+
+    const placeCards = new Section({
+      items: initialCards,
+      renderer: createPlaceCard,
+    }, placesCardListSelector);
+
+    placeCards.rendererItems();
+  })
+  .catch(err => console.log(err));
+
+/*buttonAddPlaceCard.addEventListener('click', () => {
   popupAddPlaceCard.open();
-});
+});*/
 
 
-const editProfile = ({ name, job }) => {
-  userInfo.setUserInfo({ name, job });
+const editProfile = ({ name, job: about }) => {
+  userInfo.setUserInfo({ name, about });
   popupEditProfile.close();
 }
 
@@ -71,16 +92,18 @@ buttonEditProfile.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
+/*
 avatar.addEventListener('click', () => {
   popupEditAvatar.open();
 });
+*/
 
 
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
 popupWithImage.setEventListeners();
 
-const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
-popupAddPlaceCard.setEventListeners();
+/*const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
+popupAddPlaceCard.setEventListeners();*/
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
 popupEditProfile.setEventListeners();
@@ -98,15 +121,3 @@ initProfileEditor();
 formEditProfileValidate.enableValidation();
 formAddPlaceCardValidate.enableValidation();
 formEditAvatarValidate.enableValidation();
-
-/*
-fetch('https://mesto.nomoreparties.co/v1/cohort-65/cards', {
-  headers: {
-    authorization: '36a9c581-3788-4f01-b44e-c367122bb1fa'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  });
-*/
