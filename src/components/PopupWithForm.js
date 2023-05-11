@@ -1,12 +1,11 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleFormSubmit, resetForm) {
+  constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._form = this._popup.querySelector('.form');
     this._inputList = this._popup.querySelectorAll('.form__input');
     this._handleFormSubmit = handleFormSubmit;
-    this._resetForm = resetForm;
   }
 
   _getInputValues() {
@@ -38,6 +37,5 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-    this._resetForm();
   }
 }
