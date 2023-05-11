@@ -13,6 +13,7 @@
 @import "../blocks/logo/__image/logo__image.css";
 
 @import "../blocks/profile/profile.css";
+@import "../blocks/profile/__avatar-wrap/profile__avatar-wrap.css";
 @import "../blocks/profile/__avatar/profile__avatar.css";
 @import "../blocks/profile/__info/profile__info.css";
 @import "../blocks/profile/__name-wrap/profile__name-wrap.css";
@@ -40,6 +41,8 @@
 @import "../blocks/place-card/__body/place-card__body.css";
 @import "../blocks/place-card/__name/place-card__name.css";
 @import "../blocks/place-card/__delete/place-card__delete.css";
+@import "../blocks/place-card/__likes/place-card__likes.css";
+@import "../blocks/place-card/__likes-count/place-card__likes-count.css";
 
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";

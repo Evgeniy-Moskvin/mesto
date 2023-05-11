@@ -1,6 +1,7 @@
 export const popupEditProfileSelector = '.popup_name_edit-profile';
 export const popupAddPlaceCardSelector = '.popup_name_add-place-card';
 export const popupWithImageSelector = '.popup_name_full-image';
+export const popupEditAvatarSelector = '.popup_name_edit-avatar';
 export const formEditProfile = document.forms['form-edit-profile'];
 export const buttonEditProfile = document.querySelector('.button-edit');
 export const buttonAddPlaceCard = document.querySelector('.button-add');
@@ -9,3 +10,5 @@ export const profileJobSelector = '.profile__job';
 export const placesCardListSelector = '.places__grid';
 export const placeCardTemplateSelector = '#place-card-template';
 export const formAddPlaceCard = document.forms['form-add-place-card'];
+export const formEditAvatar = document.forms['form-edit-avatar'];
+export const avatar = document.querySelector('.profile__avatar-wrap');
