@@ -58,9 +58,9 @@ const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
 }
 
-const createPlaceCard = ({ name, link }) => {
+const createPlaceCard = ({ name, link, likes }) => {
 
-  const card = new Card({ name, link }, placeCardTemplateSelector, handleCardClick);
+  const card = new Card({ name, link, likes }, placeCardTemplateSelector, handleCardClick);
   return card.createCard();
 }
 
@@ -71,7 +71,6 @@ Promise.all([
   .then((res) => {
     const user = res[0];
     const initialCards = res[1];
-
 
     userInfo.setUserInfo(user);
     userInfo.setUserAvatar(user);
