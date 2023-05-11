@@ -25,6 +25,18 @@ class Api {
     })
       .then(res => this._gerResponseJson(res));
   }
+
+  updateUserInfo({ name, about}) {
+    return fetch(`${this.url}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        about: about
+      })
+    })
+      .then(res => this._gerResponseJson(res));
+  }
 }
 
 export const api = new Api({

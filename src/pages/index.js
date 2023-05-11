@@ -83,8 +83,16 @@ Promise.all([
 
 
 const editProfile = ({ name, job: about }) => {
-  userInfo.setUserInfo({ name, about });
-  popupEditProfile.close();
+  api.updateUserInfo( { name, about })
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupEditProfile.close();
+    })
+    .catch(err => console.log(err))
+    .finally()
+
+  //userInfo.setUserInfo({ name, about });
+  //popupEditProfile.close();
 }
 
 buttonEditProfile.addEventListener('click', () => {
