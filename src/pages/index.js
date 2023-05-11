@@ -41,16 +41,25 @@ const userInfo = new UserInfo({
 });
 
 
-/*const addPlaceCard = ({ name, image: link }) => {
-  placeCard.addItem(createPlaceCard({ name, link }));
-  popupAddPlaceCard.close();
-}*/
+const placeCard = new Section({}, placesCardListSelector);
+
+const addPlaceCard = ({ name, image: link }) => {
+
+  api.addCard({ name, link })
+    .then((res) => {
+      placeCard.addItem(createPlaceCard(res));
+      popupAddPlaceCard.close();
+    })
+    .catch(err => console.log(err))
+    .finally()
+}
 
 const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
 }
 
 const createPlaceCard = ({ name, link }) => {
+
   const card = new Card({ name, link }, placeCardTemplateSelector, handleCardClick);
   return card.createCard();
 }
@@ -77,9 +86,10 @@ Promise.all([
   })
   .catch(err => console.log(err));
 
-/*buttonAddPlaceCard.addEventListener('click', () => {
+
+buttonAddPlaceCard.addEventListener('click', () => {
   popupAddPlaceCard.open();
-});*/
+});
 
 
 const editProfile = ({ name, job: about }) => {
@@ -90,9 +100,6 @@ const editProfile = ({ name, job: about }) => {
     })
     .catch(err => console.log(err))
     .finally()
-
-  //userInfo.setUserInfo({ name, about });
-  //popupEditProfile.close();
 }
 
 buttonEditProfile.addEventListener('click', () => {
@@ -110,8 +117,8 @@ avatar.addEventListener('click', () => {
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
 popupWithImage.setEventListeners();
 
-/*const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
-popupAddPlaceCard.setEventListeners();*/
+const popupAddPlaceCard = new PopupWithForm(popupAddPlaceCardSelector, addPlaceCard);
+popupAddPlaceCard.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
 popupEditProfile.setEventListeners();

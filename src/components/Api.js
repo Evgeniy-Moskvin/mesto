@@ -37,6 +37,18 @@ class Api {
     })
       .then(res => this._gerResponseJson(res));
   }
+
+  addCard({ name, link }) {
+    return fetch(`${this.url}/cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+      .then(res => this._gerResponseJson(res));
+  }
 }
 
 export const api = new Api({
