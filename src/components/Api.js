@@ -65,6 +65,14 @@ class Api {
     })
       .then(res => this._gerResponseJson(res));
   }
+
+  removeLike(id) {
+    return fetch(`${this.url}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+      .then(res => this._gerResponseJson(res));
+  }
 }
 
 export const api = new Api({

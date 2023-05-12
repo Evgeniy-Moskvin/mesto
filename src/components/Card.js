@@ -1,16 +1,20 @@
 import { logPlugin } from '@babel/preset-env/lib/debug';
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, confirmDelete, userId) {
+  constructor(data, templateSelector, handleCardClick, confirmDelete, userId, setLike, deleteLike) {
     this._name = data.name;
     this._link = data.link;
-    this._likes = data.likes.length;
+    this._likes = data.likes;
     this._owner = data.owner._id;
     this._id = data._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._confirmDelete = confirmDelete;
     this._userId = userId;
+    this._setLike = setLike;
+    this._deleteLike = deleteLike;
+
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
   _getTemplate() {
@@ -22,12 +26,11 @@ export default class Card {
 
   _setEventListeners() {
     this._cardElement.querySelector('.place-card__delete').addEventListener('click', () => {
-      console.log(this);
       this._confirmDelete(this);
     });
 
     this._cardElement.querySelector('.place-card__like').addEventListener('click', (evt) => {
-      this._toggleLike(evt);
+      this.toggleLike(evt);
     });
 
     this._placeCardImage.addEventListener('click', () => {
@@ -39,14 +42,19 @@ export default class Card {
     this._cardElement.remove();
   }
 
-  _toggleLike(evt) {
+  toggleLike(evt) {
     if (evt.target.classList.contains('button-like_active')) {
       evt.target.classList.remove('button-like_active');
+      this._deleteLike(this);
     } else {
       evt.target.classList.add('button-like_active');
+      this._setLike(this);
     }
   }
 
+  updateLikeCount(likes) {
+    this._placeCardLikes.textContent = likes;
+  }
 
 
   createCard() {
@@ -59,11 +67,17 @@ export default class Card {
     this._placeCardName.textContent = this._name;
     this._placeCardImage.src = this._link;
     this._placeCardImage.alt = this._name;
-    this._placeCardLikes.textContent = this._likes;
+    this._placeCardLikes.textContent = this._likes.length;
 
     if (this._owner !== this._userId) {
       this._cardElement.querySelector('.place-card__delete').remove();
     }
+
+    this._likes.forEach((like) => {
+      if (like._id === this._userId) {
+        this._cardElement.querySelector('.place-card__like').classList.add('button-like_active');
+      }
+    })
 
     return this._cardElement;
   }

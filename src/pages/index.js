@@ -69,7 +69,21 @@ const createPlaceCard = ({ name, link, likes, owner, _id }) => {
     (card) => {
       popupWithConfirmation.open(card);
     },
-    userInfo.getUserInfo().id
+    userInfo.getUserInfo().id,
+    (card) => {
+      api.setLike(card._id)
+        .then((res) => {
+          card.updateLikeCount(res.likes.length);
+        })
+        .catch(err => console.log(err))
+    },
+    (card) => {
+      api.removeLike(card._id)
+        .then((res) => {
+          card.updateLikeCount(res.likes.length);
+        })
+        .catch(err => console.log(err))
+    }
   );
   return card.createCard();
 }
