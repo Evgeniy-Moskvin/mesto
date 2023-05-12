@@ -2,6 +2,7 @@ export const popupEditProfileSelector = '.popup_name_edit-profile';
 export const popupAddPlaceCardSelector = '.popup_name_add-place-card';
 export const popupWithImageSelector = '.popup_name_full-image';
 export const popupEditAvatarSelector = '.popup_name_edit-avatar';
+export const popupWidthConfirmationSelector = '.popup_name_confirm';
 export const formEditProfile = document.forms['form-edit-profile'];
 export const buttonEditProfile = document.querySelector('.button-edit');
 export const buttonAddPlaceCard = document.querySelector('.button-add');

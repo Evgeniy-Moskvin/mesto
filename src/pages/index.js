@@ -6,6 +6,7 @@ import Card from '../components/Card.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
@@ -18,6 +19,7 @@ import {
   popupAddPlaceCardSelector,
   popupEditProfileSelector,
   popupEditAvatarSelector,
+  popupWidthConfirmationSelector,
   buttonEditProfile,
   buttonAddPlaceCard,
   formEditProfile,
@@ -58,9 +60,17 @@ const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
 }
 
-const createPlaceCard = ({ name, link, likes }) => {
+const createPlaceCard = ({ name, link, likes, owner, _id }) => {
 
-  const card = new Card({ name, link, likes }, placeCardTemplateSelector, handleCardClick);
+  const card = new Card(
+    { name, link, likes, owner, _id },
+    placeCardTemplateSelector,
+    handleCardClick,
+    (card) => {
+      popupWithConfirmation.open(card);
+    },
+    userInfo.getUserInfo().id
+  );
   return card.createCard();
 }
 
@@ -74,7 +84,6 @@ Promise.all([
 
     userInfo.setUserInfo(user);
     userInfo.setUserAvatar(user);
-
 
     const placeCards = new Section({
       items: initialCards,
@@ -92,7 +101,7 @@ buttonAddPlaceCard.addEventListener('click', () => {
 
 
 const editProfile = ({ name, job: about }) => {
-  api.updateUserInfo( { name, about })
+  api.updateUserInfo({ name, about })
     .then((res) => {
       userInfo.setUserInfo(res);
       popupEditProfile.close();
@@ -124,6 +133,20 @@ popupEditProfile.setEventListeners();
 
 const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector);
 popupEditAvatar.setEventListeners();
+
+const popupWithConfirmation = new PopupWithConfirmation(
+  popupWidthConfirmationSelector,
+  (card) => {
+    console.log(card);
+    api.removeCard(card._id)
+      .then((res) => {
+        popupWithConfirmation.close();
+        card.deleteCard();
+      })
+      .catch(err => console.log(err))
+  }
+)
+popupWithConfirmation.setEventListeners();
 
 const initProfileEditor = () => {
   popupEditProfile.setInputValues(userInfo.getUserInfo());

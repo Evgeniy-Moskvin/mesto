@@ -1,10 +1,16 @@
+import { logPlugin } from '@babel/preset-env/lib/debug';
+
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, confirmDelete, userId) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes.length;
+    this._owner = data.owner._id;
+    this._id = data._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._confirmDelete = confirmDelete;
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -16,7 +22,8 @@ export default class Card {
 
   _setEventListeners() {
     this._cardElement.querySelector('.place-card__delete').addEventListener('click', () => {
-      this._deleteCard();
+      console.log(this);
+      this._confirmDelete(this);
     });
 
     this._cardElement.querySelector('.place-card__like').addEventListener('click', (evt) => {
@@ -28,13 +35,19 @@ export default class Card {
     });
   }
 
-  _deleteCard() {
+  deleteCard() {
     this._cardElement.remove();
   }
 
   _toggleLike(evt) {
-    evt.target.classList.toggle('button-like_active');
+    if (evt.target.classList.contains('button-like_active')) {
+      evt.target.classList.remove('button-like_active');
+    } else {
+      evt.target.classList.add('button-like_active');
+    }
   }
+
+
 
   createCard() {
     this._cardElement = this._getTemplate();
@@ -47,6 +60,10 @@ export default class Card {
     this._placeCardImage.src = this._link;
     this._placeCardImage.alt = this._name;
     this._placeCardLikes.textContent = this._likes;
+
+    if (this._owner !== this._userId) {
+      this._cardElement.querySelector('.place-card__delete').remove();
+    }
 
     return this._cardElement;
   }

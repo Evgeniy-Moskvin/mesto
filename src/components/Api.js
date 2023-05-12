@@ -49,6 +49,22 @@ class Api {
     })
       .then(res => this._gerResponseJson(res));
   }
+
+  removeCard(id) {
+    return fetch(`${this.url}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then(res => this._gerResponseJson(res));
+  }
+
+  setLike(id) {
+    return fetch(`${this.url}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this.headers,
+    })
+      .then(res => this._gerResponseJson(res));
+  }
 }
 
 export const api = new Api({
