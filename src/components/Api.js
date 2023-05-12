@@ -38,12 +38,12 @@ class Api {
       .then(res => this._gerResponseJson(res));
   }
 
-  updateUserAvatar(avatar) {
+  updateUserAvatar({image}) {
     return fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar: image
       })
     })
       .then(res => this._gerResponseJson(res));

@@ -131,6 +131,15 @@ const editProfile = ({ name, job: about }) => {
 
 const editAvatar = (avatar) => {
   popupEditAvatar.sending(false);
+  api.updateUserAvatar(avatar)
+    .then((res) => {
+      userInfo.setUserAvatar(res)
+      popupEditAvatar.close();
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      popupEditAvatar.sending(true);
+    });
 }
 
 buttonEditProfile.addEventListener('click', () => {
@@ -152,7 +161,7 @@ popupAddPlaceCard.setEventListeners();
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, editProfile);
 popupEditProfile.setEventListeners();
 
-const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector);
+const popupEditAvatar = new PopupWithForm(popupEditAvatarSelector, editAvatar);
 popupEditAvatar.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation(
