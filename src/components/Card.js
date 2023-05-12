@@ -44,12 +44,16 @@ export default class Card {
 
   toggleLike(evt) {
     if (evt.target.classList.contains('button-like_active')) {
-      evt.target.classList.remove('button-like_active');
+      //evt.target.classList.remove('button-like_active');
       this._deleteLike(this);
     } else {
-      evt.target.classList.add('button-like_active');
+      //evt.target.classList.add('button-like_active');
       this._setLike(this);
     }
+  }
+
+  toggleLikeView() {
+    this._cardElement.querySelector('.place-card__like').classList.toggle('button-like_active');
   }
 
   updateLikeCount(likes) {

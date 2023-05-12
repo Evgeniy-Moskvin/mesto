@@ -43,13 +43,14 @@ const userInfo = new UserInfo({
 });
 
 
-const placeCard = new Section({}, placesCardListSelector);
+//const placeCard = new Section(placesCardListSelector);
+const placeCards = new Section(placesCardListSelector);
 
 const addPlaceCard = ({ name, image: link }) => {
   popupAddPlaceCard.sending(false);
   api.addCard({ name, link })
     .then((res) => {
-      placeCard.addItem(createPlaceCard(res));
+      placeCards.addItem(createPlaceCard(res));
       popupAddPlaceCard.close();
     })
     .catch(err => console.log(err))
@@ -61,6 +62,8 @@ const addPlaceCard = ({ name, image: link }) => {
 const handleCardClick = (src, name) => {
   popupWithImage.open(src, name);
 }
+
+
 
 const createPlaceCard = ({ name, link, likes, owner, _id }) => {
 
@@ -76,6 +79,7 @@ const createPlaceCard = ({ name, link, likes, owner, _id }) => {
       api.setLike(card._id)
         .then((res) => {
           card.updateLikeCount(res.likes.length);
+          card.toggleLikeView();
         })
         .catch(err => console.log(err))
     },
@@ -83,6 +87,7 @@ const createPlaceCard = ({ name, link, likes, owner, _id }) => {
       api.removeLike(card._id)
         .then((res) => {
           card.updateLikeCount(res.likes.length);
+          card.toggleLikeView();
         })
         .catch(err => console.log(err))
     }
@@ -101,12 +106,12 @@ Promise.all([
     userInfo.setUserInfo(user);
     userInfo.setUserAvatar(user);
 
-    const placeCards = new Section({
+    /*const placeCards = new Section({
       items: initialCards,
       renderer: createPlaceCard,
-    }, placesCardListSelector);
+    }, placesCardListSelector);*/
 
-    placeCards.rendererItems();
+    placeCards.rendererItems({ items: initialCards, renderer: createPlaceCard });
   })
   .catch(err => console.log(err));
 
