@@ -46,14 +46,16 @@ const userInfo = new UserInfo({
 const placeCard = new Section({}, placesCardListSelector);
 
 const addPlaceCard = ({ name, image: link }) => {
-
+  popupAddPlaceCard.sending(false);
   api.addCard({ name, link })
     .then((res) => {
       placeCard.addItem(createPlaceCard(res));
       popupAddPlaceCard.close();
     })
     .catch(err => console.log(err))
-    .finally()
+    .finally(() => {
+      popupAddPlaceCard.sending(true);
+    })
 }
 
 const handleCardClick = (src, name) => {
@@ -115,13 +117,20 @@ buttonAddPlaceCard.addEventListener('click', () => {
 
 
 const editProfile = ({ name, job: about }) => {
+  popupEditProfile.sending(false);
   api.updateUserInfo({ name, about })
     .then((res) => {
       userInfo.setUserInfo(res);
       popupEditProfile.close();
     })
     .catch(err => console.log(err))
-    .finally()
+    .finally(() => {
+      popupEditProfile.sending(true);
+    });
+}
+
+const editAvatar = (avatar) => {
+  popupEditAvatar.sending(false);
 }
 
 buttonEditProfile.addEventListener('click', () => {
@@ -129,11 +138,9 @@ buttonEditProfile.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
-/*
 avatar.addEventListener('click', () => {
   popupEditAvatar.open();
 });
-*/
 
 
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
@@ -151,7 +158,6 @@ popupEditAvatar.setEventListeners();
 const popupWithConfirmation = new PopupWithConfirmation(
   popupWidthConfirmationSelector,
   (card) => {
-    console.log(card);
     api.removeCard(card._id)
       .then((res) => {
         popupWithConfirmation.close();

@@ -38,6 +38,17 @@ class Api {
       .then(res => this._gerResponseJson(res));
   }
 
+  updateUserAvatar(avatar) {
+    return fetch(`${this.url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    })
+      .then(res => this._gerResponseJson(res));
+  }
+
   addCard({ name, link }) {
     return fetch(`${this.url}/cards`, {
       method: 'POST',
